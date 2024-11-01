@@ -62,8 +62,8 @@ This application consists of a microservices architecture where:
 
 1. **Clone the Repository**
    ```bash
-   git clone <repository-url>
-   cd <project-directory>
+   git clone https://github.com/GauravOOO2/Assignment-Chat-with-Docs-Frontend.git
+   cd Assignment-Chat-with-Docs-Frontend
    ```
 
 2. **Environment Variables**: Configure environment variables for database, AWS S3, and other integrations.
