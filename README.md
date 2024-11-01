@@ -1,70 +1,132 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Document Management System with NLP and RAG Integration
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This project is a secure, scalable, full-stack application that allows users to upload, store, and interact with various document types (e.g., PDF, PPT, CSV) using advanced Natural Language Processing (NLP). A RAG (Retrieve and Generate) Agent is implemented to query documents with user questions. This solution supports document management, user authentication, and effective NLP-based querying, utilizing `unstructured.io` for efficient document parsing.
 
-### `npm start`
+## Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Backend**: FastAPI
+- **Frontend**: React.js
+- **Database**: PostgreSQL, Redis
+- **File Storage**: AWS S3 (or equivalent)
+- **Document Parsing**: `unstructured.io` for text and metadata extraction
+- **NLP Processing**: LangChain/LLamaIndex
+- **Agents**: Autogen/Crewai (or equivalent)
+- **Search Engine**: Elasticsearch
+- **Authentication**: Session-based (OAuth2.0 or JWT as alternatives)
+- **Deployment**: Docker, Kubernetes
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+### Document Upload and Management
+- **Multi-format Support**: Upload and store documents in various formats (PDF, PPT, CSV, etc.) securely.
+- **Real-time Parsing**: Automatic text and metadata extraction using `unstructured.io`.
+- **Storage**: AWS S3 (or equivalent) ensures document durability and accessibility.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Advanced NLP Features with RAG Agents
+- **Contextual Query Handling**: Retrieve and generate answers based on stored document content.
+- **NLP Processing**: LangChain/LLamaIndex for document indexing and search.
+- **Response Generation**: Autogen/Crewai agents provide context-aware answers.
 
-### `npm run build`
+### Additional Functionalities
+- **Authentication**: Secure user login with session management.
+- **Usability**: User-friendly interface for ease of use.
+- **Scalability**: Supports complex NLP queries with efficient resource use.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Architecture
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This application consists of a microservices architecture where:
+1. **Frontend Service**: React.js UI for document upload, query input, and response display.
+2. **Backend Service**: FastAPI server handling document management, NLP processing, and RAG agent querying.
+3. **Database**: PostgreSQL for structured data and Redis for cache management.
+4. **File Storage**: AWS S3 for document storage.
+5. **Search and Indexing**: Elasticsearch for quick document retrieval.
+6. **Document Parsing Service**: `unstructured.io` for document text and metadata extraction.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Database Schema
 
-### `npm run eject`
+- **Documents**: Stores document metadata, format, and related attributes.
+- **Users**: Manages user authentication and session data.
+- **Queries**: Logs user queries and response history.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Setup and Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
+- Docker, Docker Compose
+- Kubernetes (optional for deployment)
+- PostgreSQL, Redis, and AWS S3 credentials
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installation Steps
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Clone the Repository**
+   ```bash
+   git clone <repository-url>
+   cd <project-directory>
+   ```
 
-## Learn More
+2. **Environment Variables**: Configure environment variables for database, AWS S3, and other integrations.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Database Setup**
+   - Run PostgreSQL and Redis containers:
+     ```bash
+     docker-compose up -d postgres redis
+     ```
+   - Apply migrations to initialize the database schema.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **Backend Service**:
+   - Install dependencies and start the FastAPI server:
+     ```bash
+     cd backend
+     pip install -r requirements.txt
+     uvicorn main:app --reload
+     ```
 
-### Code Splitting
+5. **Frontend Service**:
+   - Navigate to the `frontend` folder, install dependencies, and start the React app:
+     ```bash
+     cd frontend
+     npm install
+     npm start
+     ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+6. **Elasticsearch Setup**:
+   - Ensure Elasticsearch is running and configured with appropriate indices.
 
-### Analyzing the Bundle Size
+### Docker Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Build Docker Images**:
+   ```bash
+   docker-compose build
+   ```
 
-### Making a Progressive Web App
+2. **Run Docker Containers**:
+   ```bash
+   docker-compose up
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Kubernetes Deployment (Optional)
 
-### Advanced Configuration
+- Deploy the app components with Kubernetes manifests:
+  ```bash
+  kubectl apply -f k8s/
+  ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Monitoring and Logging (Optional)
 
-### Deployment
+- **Monitoring**: Use Prometheus and Grafana for collecting metrics and dashboard visualization.
+- **Logging**: Configure ELK Stack for log aggregation and visualization.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Usage
 
-### `npm run build` fails to minify
+1. **User Authentication**: Register and log in to access the document management features.
+2. **Upload Documents**: Upload PDFs, PPTs, or CSV files, which will be parsed and stored.
+3. **Ask Questions**: Enter questions related to the uploaded documents. The RAG agent retrieves and generates answers based on document content.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Evaluation
+
+- **Code Quality**: Clean, modular, and well-documented code.
+- **Scalability**: Architected for high availability and fault tolerance.
+- **Deployment**: Containerized with optional Kubernetes deployment.
+- **Innovation**: Enhanced document interaction through NLP and RAG-based querying.
